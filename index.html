@@ -38,10 +38,10 @@
             width: 100%;
             height: 100%;
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            animation: moveBackground 12s ease-in-out infinite alternate;
+            height: 200%;
+            background-size: 100% 50%;
+            background-repeat: repeat-y;
+            animation: moveBackground 15s linear infinite;
         }
 
         .background-earth {
@@ -62,8 +62,8 @@
         }
 
         @keyframes moveBackground {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
         }
 
         @keyframes earthPulse {
