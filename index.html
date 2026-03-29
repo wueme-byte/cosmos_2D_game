@@ -16,11 +16,6 @@
             width: 100%;
             height: 100%;
             background-color: black;
-            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            background-size: auto 140%;
-            background-position: center 20%;
-            background-repeat: no-repeat;
-            animation: moveBackground 25s ease-in-out infinite alternate;
         }
 
         body {
@@ -32,11 +27,26 @@
             font-family: Arial, sans-serif;
             width: 100%;
             height: 100%;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -35%;
+            left: -10%;
+            width: 120%;
+            height: 170%;
+            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: moveBackground 25s ease-in-out infinite alternate;
         }
 
         @keyframes moveBackground {
-            0% { background-position: center 20%; }
-            100% { background-position: center 80%; }
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20%); }
         }
 
         .background-container {
