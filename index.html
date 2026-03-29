@@ -15,6 +15,10 @@
             padding: 0;
             overflow: hidden;
             background-color: black;
+            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: white;
             font-family: Arial, sans-serif;
             width: 100%;
@@ -31,19 +35,7 @@
             z-index: 0;
         }
 
-        .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-
-        .background-earth {
+.background-earth {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -273,7 +265,6 @@
         <button class="start-button" onclick="startGame()">START</button>
     </div>
     <div class="background-container">
-        <div class="background" id="background"></div>
         <div class="background-earth"></div>
     </div>
     <div class="game-container" id="game-container">
@@ -304,8 +295,6 @@
         const endScreen = document.getElementById('end-screen');
         const congratsScreen = document.getElementById('congrats-screen');
         const earnedScore = document.getElementById('earned-score');
-        const background = document.getElementById('background');
-        const backgroundSecondary = document.getElementById('background-secondary');
         const explosion = document.getElementById('explosion');
         let score = 0;
         let isDragging = false;
@@ -463,7 +452,6 @@
         }
 
         function endGame() {
-            background.style.animationPlayState = 'paused';
             setTimeout(() => {
                 plane.style.display = 'none';
                 endScreen.style.display = 'flex';
@@ -507,7 +495,6 @@
             scoreElement.textContent = `Score: ${score}`;
             plane.classList.remove('plane-end');
             plane.classList.remove('plane-start');
-            background.style.animationPlayState = 'running';
         }
     </script>
 </body>
