@@ -43,9 +43,10 @@
         }
 
         .background-secondary {
-            top: 65%; /* The second image starts at 65% of the height */
-            opacity: 0.6;
-            animation: moveBackground 20s linear infinite;
+            top: -50%;
+            height: 200%;
+            opacity: 0.35;
+            animation: moveBackground 20s ease-in-out infinite alternate;
         }
 
         .background-earth {
@@ -65,7 +66,7 @@
 
         @keyframes moveBackground {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-35%); } /* Move to 35% of the height */
+            100% { transform: translateY(-15%); }
         }
 
         .game-container {
