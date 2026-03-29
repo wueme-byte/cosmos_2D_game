@@ -25,7 +25,7 @@ async def start(update: Update, context: CallbackContext):
     stonfi_button = InlineKeyboardButton("STON.Fi", url='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=ANON')
     second_message_markup = InlineKeyboardMarkup([[dedust_button, stonfi_button]])
 
-    await context.bot.send_photo(chat_id=chat_id, photo='https://i.ibb.co/M7Y1JKt/A-spaceship-flying-through-space-with-burning-and.jpg', caption=second_message, parse_mode=ParseMode.MARKDOWN, reply_markup=second_message_markup)
+    await context.bot.send_photo(chat_id=chat_id, photo='https://ibb.co/1fqvq1hg', caption=second_message, parse_mode=ParseMode.MARKDOWN, reply_markup=second_message_markup)
 
 
 
