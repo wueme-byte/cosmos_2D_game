@@ -37,7 +37,7 @@
             left: 0;
             width: 100%;
             height: 135%; /* Height increased by 35% */
-            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/earth.png');
+            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -113,10 +113,12 @@
             width: 70px; 
             height: 70px; 
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/planeforgame.png');
-            background-size: cover;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 25vh; 
+            bottom: 25vh;
             z-index: 2; /* Ensure that the aircraft is above the background */
             display: none; /* Hide until the game starts */
         }
@@ -156,8 +158,10 @@
             width: 30px;
             height: 30px;
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/starforgame.png');
-            background-size: cover;
-            z-index: 2; 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2;
         }
 
         .meteor {
