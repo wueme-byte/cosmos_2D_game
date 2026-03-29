@@ -57,7 +57,7 @@ Stay anonymous and get ready for new surprises with ANON!"""
     await context.bot.send_animation(chat_id=chat_id, animation='https://i.postimg.cc/DzVL3Vk0/ezgif-6-9954069cb7.gif', caption=caption, reply_markup=reply_markup)
 
 # token
-application = Application.builder().token("7220018530:AAGgWgbKZYlMiH_CsYXXiVp8gH_W-HfRmCw").build()
+application = Application.builder().token("8387017891:AAEZmhCZ_eY7F2PmVDMCTYzLvSObgIQBr3c").build()
 application.add_handler(CommandHandler("start", start))
 application.run_polling()
 
