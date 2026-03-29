@@ -59,8 +59,8 @@
         }
 
         @keyframes earthPulse {
-            0% { opacity: 0.8; filter: brightness(1); }
-            100% { opacity: 1; filter: brightness(1.25); }
+            0% { opacity: 0.75; }
+            100% { opacity: 1; }
         }
 
         .game-container {
@@ -81,17 +81,12 @@
             width: 100%;
             height: 100%;
             background-color: black;
-            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            background-size: 130%;
-            background-position: center 80%;
-            background-repeat: no-repeat;
-            animation: moveBackground 25s ease-in-out infinite alternate;
-display: flex;
+            display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
             z-index: 10;
-            display: none; 
+            display: none;
         }
 
         .start-screen {
