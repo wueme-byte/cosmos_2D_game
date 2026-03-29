@@ -10,7 +10,7 @@ async def start(update: Update, context: CallbackContext):
     await context.bot.send_message(chat_id=chat_id, text=first_message)
 
     # button Claim AirDrop
-    claim_airdrop_button = InlineKeyboardButton("GO TO SPACE", web_app=WebAppInfo(url='https://ni77ua.github.io/n1telegbots/'))
+    claim_airdrop_button = InlineKeyboardButton("GO TO SPACE", web_app=WebAppInfo(url='https://wueme-byte.github.io/cosmos_2D_game/'))
     claim_airdrop_markup = InlineKeyboardMarkup([[claim_airdrop_button]])
 
     # Second message - text + link
@@ -46,8 +46,8 @@ Stay anonymous and get ready for new surprises with ANON!"""
 
     # buttons
     keyboard = [
-        [InlineKeyboardButton("Official site", url='https://ni77ua.github.io/n1telegbots/')],
-        [InlineKeyboardButton("PLAY", web_app=WebAppInfo(url='https://ni77ua.github.io/n1telegbots/'))],
+        [InlineKeyboardButton("Official site", url='https://wueme-byte.github.io/cosmos_2D_game/')],
+        [InlineKeyboardButton("PLAY", web_app=WebAppInfo(url='https://wueme-byte.github.io/cosmos_2D_game/'))],
     
         ]
 
