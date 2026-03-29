@@ -31,22 +31,16 @@
             z-index: 0;
         }
 
-        .background, .background-secondary {
+        .background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 135%; /* Height increased by 35% */
+            height: 100%;
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
             background-size: cover;
             background-repeat: no-repeat;
-        }
-
-        .background-secondary {
-            top: -50%;
-            height: 200%;
-            opacity: 0.35;
-            animation: moveBackground 20s ease-in-out infinite alternate;
+            animation: moveBackground 12s ease-in-out infinite alternate;
         }
 
         .background-earth {
@@ -65,8 +59,8 @@
         }
 
         @keyframes moveBackground {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-15%); }
+            0% { background-position: center 0%; }
+            100% { background-position: center 12%; }
         }
 
         .game-container {
@@ -280,7 +274,6 @@
     </div>
     <div class="background-container">
         <div class="background" id="background"></div>
-        <div class="background-secondary" id="background-secondary"></div>
         <div class="background-earth"></div>
     </div>
     <div class="game-container" id="game-container">
