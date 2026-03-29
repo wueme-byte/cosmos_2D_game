@@ -35,6 +35,24 @@
             z-index: 0;
         }
 
+        .background-middle {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            animation: moveMiddle 15s linear infinite;
+        }
+
+        @keyframes moveMiddle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50%); }
+        }
+
 .background-earth {
             position: absolute;
             bottom: -10%;
@@ -263,6 +281,7 @@
         <button class="start-button" onclick="startGame()">START</button>
     </div>
     <div class="background-container">
+        <div class="background-middle"></div>
         <div class="background-earth"></div>
     </div>
     <div class="game-container" id="game-container">
