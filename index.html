@@ -15,6 +15,10 @@
             padding: 0;
             overflow: hidden;
             background-color: black;
+            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: white;
             font-family: Arial, sans-serif;
             width: 100%;
@@ -29,37 +33,6 @@
             height: 100%;
             overflow: hidden;
             z-index: 0;
-        }
-
-        .background-static {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            opacity: 0.3;
-        }
-
-        .background-middle {
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 200%;
-            background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            animation: moveMiddle 15s linear infinite;
-        }
-
-        @keyframes moveMiddle {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50%); }
         }
 
 .background-earth {
@@ -290,8 +263,6 @@
         <button class="start-button" onclick="startGame()">START</button>
     </div>
     <div class="background-container">
-        <div class="background-static"></div>
-        <div class="background-middle"></div>
         <div class="background-earth"></div>
     </div>
     <div class="game-container" id="game-container">
