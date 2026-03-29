@@ -38,10 +38,9 @@
             width: 100%;
             height: 100%;
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/cosmossky.png');
-            height: 100%;
-            background-size: 100% 100vh;
-            background-repeat: repeat-y;
-            animation: moveBackground 15s linear infinite;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
         }
 
         .background-earth {
@@ -49,21 +48,14 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 85%;
+            height: 70%;
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/earth.png');
-            background-size: 150%;
+            background-size: cover;
             background-position: bottom center;
             background-repeat: no-repeat;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-            mix-blend-mode: screen;
-            opacity: 0.9;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%);
             animation: earthPulse 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes moveBackground {
-            from { background-position: center 0; }
-            to { background-position: center -100vh; }
         }
 
         @keyframes earthPulse {
