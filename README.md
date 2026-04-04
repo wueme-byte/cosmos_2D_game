@@ -1,6 +1,6 @@
-# Cosmos 2D Game 🚀
+# Cosmos 2D Mobile Game 🚀
 
-A browser-based 2D space game where you pilot a plane through a meteor shower and collect stars.
+A 2D space game where you pilot a plane through a meteor shower and collect stars.
 
 ## Play Now
 
