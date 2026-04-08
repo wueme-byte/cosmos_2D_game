@@ -286,7 +286,7 @@
 <body>
     <div class="desktop-warning" id="desktop-warning">
         <span>📱</span>
-        <div>Opps, please use mobile to join in</div>
+        <div>Oops, please switch to a mobile device to join.</div>
     </div>
 
     <div class="loading-screen" id="loading-screen">Loading...</div>
@@ -331,6 +331,15 @@
         let gameIntervals = [];
         let activeRafs = new Set();
 
+        const PLANE_W = 70;
+        const PLANE_H = 70;
+        let planeLeft = window.innerWidth / 2 - PLANE_W / 2;
+
+        function getPlaneBox() {
+            const bottom = window.innerHeight * 0.75;
+            return { left: planeLeft, right: planeLeft + PLANE_W, top: bottom - PLANE_H, bottom };
+        }
+
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
 
@@ -355,15 +364,16 @@
         });
 
         gameContainer.addEventListener('touchmove', (event) => {
+            event.preventDefault();
             if (isDragging && !gameOver) {
                 const touch = event.touches[0];
-                const planeWidth = plane.offsetWidth;
-                let newLeft = touch.clientX - planeWidth / 2;
+                let newLeft = touch.clientX - PLANE_W / 2;
                 newLeft = Math.max(0, newLeft);
-                newLeft = Math.min(gameContainer.offsetWidth - planeWidth, newLeft); 
+                newLeft = Math.min(window.innerWidth - PLANE_W, newLeft);
+                planeLeft = newLeft;
                 plane.style.left = `${newLeft}px`;
             }
-        });
+        }, { passive: false });
 
         function createStar() {
             const star = document.createElement('div');
@@ -393,11 +403,11 @@
                 }
 
                 if (!gameOver) {
-                    const planeRect = plane.getBoundingClientRect();
-                    if (starY < planeRect.bottom &&
-                        starY + 30 > planeRect.top &&
-                        starLeft < planeRect.right &&
-                        starLeft + 30 > planeRect.left) {
+                    const p = getPlaneBox();
+                    if (starY < p.bottom &&
+                        starY + 30 > p.top &&
+                        starLeft < p.right &&
+                        starLeft + 30 > p.left) {
                         star.remove();
                         score++;
                         scoreElement.textContent = `Score: ${score}`;
@@ -454,14 +464,14 @@
                 }
 
                 if (!gameOver) {
-                    const planeRect = plane.getBoundingClientRect();
-                    if (meteorY < planeRect.bottom &&
-                        meteorY + meteorWidth > planeRect.top &&
-                        meteorLeft < planeRect.right &&
-                        meteorLeft + meteorWidth > planeRect.left) {
+                    const p = getPlaneBox();
+                    if (meteorY < p.bottom &&
+                        meteorY + meteorWidth > p.top &&
+                        meteorLeft < p.right &&
+                        meteorLeft + meteorWidth > p.left) {
                         meteor.remove();
                         activeRafs.delete(cancel);
-                        triggerExplosion(planeRect);
+                        triggerExplosion(p);
                         return;
                     }
                 }
@@ -474,10 +484,10 @@
             activeRafs.add(cancel);
         }
 
-        function triggerExplosion(planeRect) {
+        function triggerExplosion(p) {
             gameOver = true;
-            explosion.style.left = `${planeRect.left + planeRect.width / 2 - 100}px`; //  X
-            explosion.style.top = `${planeRect.top + planeRect.height / 2 - 100}px`; //  Y
+            explosion.style.left = `${p.left + PLANE_W / 2 - 100}px`;
+            explosion.style.top = `${p.top + PLANE_H / 2 - 100}px`;
             explosion.style.display = 'block';
             explosion.style.animation = 'blink 1s infinite';
             plane.style.display = 'none';
@@ -570,6 +580,7 @@
 
             gameOver = false;
             score = 0;
+            planeLeft = window.innerWidth / 2 - PLANE_W / 2;
             scoreElement.textContent = `Score: ${score}`;
             plane.classList.remove('plane-end');
             plane.classList.remove('plane-start');
