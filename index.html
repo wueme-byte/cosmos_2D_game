@@ -157,17 +157,21 @@
             position: absolute;
             width: 30px;
             height: 30px;
+            top: 0;
             background-image: url('https://raw.githubusercontent.com/wueme-byte/cosmos_2D_game/main/images/newstar.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             z-index: 2;
+            will-change: transform;
         }
 
         .meteor {
             position: absolute;
+            top: 0;
             background-size: cover;
             z-index: 2; /* upper then background */
+            will-change: transform;
         }
 
         .explosion {
@@ -324,7 +328,8 @@
         let score = 0;
         let isDragging = false;
         let gameOver = false;
-        let gameIntervals = []; 
+        let gameIntervals = [];
+        let activeRafs = new Set();
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
@@ -365,31 +370,48 @@
             star.classList.add('star');
             const starLeft = Math.random() * window.innerWidth;
             star.style.left = `${starLeft}px`;
-            star.style.top = '0px';
             gameContainer.appendChild(star);
 
             let starY = 0;
-            let fallInterval = setInterval(() => {
-                starY += 5;
-                star.style.top = `${starY}px`;
+            let lastTime = null;
+            let rafId;
+            let cancelled = false;
+
+            function fall(timestamp) {
+                if (cancelled) return;
+                if (!lastTime) lastTime = timestamp;
+                const delta = Math.min(timestamp - lastTime, 50);
+                lastTime = timestamp;
+
+                starY += 5 * (delta / 30);
+                star.style.transform = `translateY(${starY}px)`;
 
                 if (starY > window.innerHeight) {
                     star.remove();
-                    clearInterval(fallInterval);
-                } else if (!gameOver) {
+                    activeRafs.delete(cancel);
+                    return;
+                }
+
+                if (!gameOver) {
                     const planeRect = plane.getBoundingClientRect();
                     if (starY < planeRect.bottom &&
                         starY + 30 > planeRect.top &&
                         starLeft < planeRect.right &&
                         starLeft + 30 > planeRect.left) {
                         star.remove();
-                        clearInterval(fallInterval);
                         score++;
                         scoreElement.textContent = `Score: ${score}`;
+                        activeRafs.delete(cancel);
+                        return;
                     }
                 }
-            }, 30);
-            gameIntervals.push(fallInterval);
+
+                rafId = requestAnimationFrame(fall);
+            }
+
+            rafId = requestAnimationFrame(fall);
+            const cancel = () => { cancelled = true; cancelAnimationFrame(rafId); star.remove(); };
+            activeRafs.add(cancel);
         }
 
         function createMeteor() {
@@ -400,40 +422,56 @@
             const meteor = document.createElement('div');
             meteor.classList.add('meteor');
 
-            // random meteor size 
             const sizeModifier = Math.random() < 0.5 ? 0.5 : 0.7;
             meteor.style.width = `${100 * sizeModifier}px`;
             meteor.style.height = `${100 * sizeModifier}px`;
-
             meteor.style.backgroundImage = `url(${meteorTypes[Math.floor(Math.random() * meteorTypes.length)]})`;
+
             const meteorLeft = Math.random() * window.innerWidth;
             const meteorWidth = 100 * sizeModifier;
             meteor.style.left = `${meteorLeft}px`;
-            meteor.style.top = '0px';
             gameContainer.appendChild(meteor);
 
             let meteorY = 0;
-            let fallSpeed = Math.random() < 0.5 ? 10 : 5;
-            let fallInterval = setInterval(() => {
-                meteorY += fallSpeed;
-                meteor.style.top = `${meteorY}px`;
+            let lastTime = null;
+            let rafId;
+            let cancelled = false;
+            const fallSpeed = Math.random() < 0.5 ? 10 : 5;
+
+            function fall(timestamp) {
+                if (cancelled) return;
+                if (!lastTime) lastTime = timestamp;
+                const delta = Math.min(timestamp - lastTime, 50);
+                lastTime = timestamp;
+
+                meteorY += fallSpeed * (delta / 30);
+                meteor.style.transform = `translateY(${meteorY}px)`;
 
                 if (meteorY > window.innerHeight) {
                     meteor.remove();
-                    clearInterval(fallInterval);
-                } else if (!gameOver) {
+                    activeRafs.delete(cancel);
+                    return;
+                }
+
+                if (!gameOver) {
                     const planeRect = plane.getBoundingClientRect();
                     if (meteorY < planeRect.bottom &&
                         meteorY + meteorWidth > planeRect.top &&
                         meteorLeft < planeRect.right &&
                         meteorLeft + meteorWidth > planeRect.left) {
                         meteor.remove();
-                        clearInterval(fallInterval);
+                        activeRafs.delete(cancel);
                         triggerExplosion(planeRect);
+                        return;
                     }
                 }
-            }, 30);
-            gameIntervals.push(fallInterval);
+
+                rafId = requestAnimationFrame(fall);
+            }
+
+            rafId = requestAnimationFrame(fall);
+            const cancel = () => { cancelled = true; cancelAnimationFrame(rafId); meteor.remove(); };
+            activeRafs.add(cancel);
         }
 
         function triggerExplosion(planeRect) {
@@ -521,11 +559,12 @@
         }
 
         function resetGame() {
-            
             gameIntervals.forEach(clearInterval);
-            gameIntervals = []; 
+            gameIntervals = [];
 
-            
+            activeRafs.forEach(cancel => cancel());
+            activeRafs.clear();
+
             document.querySelectorAll('.star').forEach(star => star.remove());
             document.querySelectorAll('.meteor').forEach(meteor => meteor.remove());
 
