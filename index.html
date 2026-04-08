@@ -252,12 +252,39 @@
         }
 
         .congrats-screen {
-            display: none; 
+            display: none;
             flex-direction: column;
+        }
+
+        .desktop-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            font-size: 28px;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .desktop-warning span {
+            font-size: 64px;
         }
     </style>
 </head>
 <body>
+    <div class="desktop-warning" id="desktop-warning">
+        <span>📱</span>
+        <div>Opps, please use mobile to join in</div>
+    </div>
+
     <div class="loading-screen" id="loading-screen">Loading...</div>
     <div class="start-screen" id="start-screen">
         <button class="start-button" onclick="startGame()">START</button>
@@ -301,6 +328,13 @@
 
         window.addEventListener('load', () => {
             loadingScreen.style.display = 'none';
+
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                || (navigator.maxTouchPoints > 0 && window.innerWidth <= 1024);
+
+            if (!isMobile) {
+                document.getElementById('desktop-warning').style.display = 'flex';
+            }
         });
 
         plane.addEventListener('touchstart', (event) => {
